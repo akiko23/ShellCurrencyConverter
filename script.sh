@@ -1,4 +1,5 @@
 API_KEY=oZ2ugqoP2vSvDiu25QZzoWLwuYEV9WEC
+# useless const -> PYTHON_SCRIPT="import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'])"
 
 if [[ $1 ]] && [[ $2 ]] && [[ $3 ]]; then
     url="https://api.apilayer.com/fixer/convert?to=$3&from=$2&amount=$1"
