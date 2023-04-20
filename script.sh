@@ -46,7 +46,7 @@ else
             echo `curl -s --request GET \
                  --url $url \
                  --header "apikey: $API_KEY"` | \
-            python3 -c "import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'>
+            python3 -c "import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'])
         done < $f_path
     fi
 fi
