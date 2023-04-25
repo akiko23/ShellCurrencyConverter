@@ -9,7 +9,7 @@ function convert() {
     python3 -c "import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'])"
 }
 
-# how to use instruction
+# "how to use" instruction
 if [[ $1 == '-h' ]]; then
   echo ""
   exit 0
