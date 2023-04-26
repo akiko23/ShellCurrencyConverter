@@ -2,6 +2,7 @@ API_KEY=wYLMrI9ITvgE34F3cCEBmlcSXxalHPd8
 
 # This function makes request on Fixer API which consists of amount, origin curency and curency that you want to receive and then returns the current rate
 function convert() {
+    echo "Подождите, идет запрос к АПИ.."
     url="https://api.apilayer.com/fixer/convert?to=$3&from=$2&amount=$1"
     echo `curl -s --request GET \
          --url $url \
