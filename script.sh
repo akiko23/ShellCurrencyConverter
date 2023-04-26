@@ -8,6 +8,7 @@ function convert() {
          --url $url \
          --header "apikey: $API_KEY"` | \
     python3 -c "import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'])"
+    echo
 }
 
 # "how to use" instruction
