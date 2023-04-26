@@ -7,8 +7,7 @@ function convert() {
     echo `curl -s --request GET \
          --url $url \
          --header "apikey: $API_KEY"` | \
-    python3 -c "import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'])"
-    echo
+    python3 -c "import sys, json; data = json.load(sys.stdin); query = data['query']; print(query['amount'], query['from'], 'это', data['result'], query['to'] + '\n')"
 }
 
 # "how to use" instruction
@@ -26,6 +25,7 @@ elif [[ -f $1 ]]; then
    done < $1 
 else
     read -p "Выберите вариант использования(1 - самостоятельный ввод запроса с клавиатуры в формате 'КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД' (5000 RUB USD); 2 - указание файла со строками формата 'КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД'): " action
+    echo
     if [[ $action -eq 1 ]]; then
         read -p "Введите запрос в формате 'КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД' (5000 RUB USD): " amount from to
         convert $amount $from $to
