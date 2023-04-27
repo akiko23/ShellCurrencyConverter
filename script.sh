@@ -20,45 +20,45 @@ if [[ $1 == '-h' ]]; then
   exit 0
 fi
 
-// check for first case with 3 arguments
+# check for first case with 3 arguments
 if [[ $1 ]] && [[ $2 ]] && [[ $3 ]]; then
     convert $1 $2 $3
     
-// check for the second case with file path
+# check for the second case with file path
 elif [[ -f $1 ]]; then
    c=1
-   // read file lines
+   # read file lines
    while read amount from to
    do
-      // beautiful output
+      # beautiful output
       echo "[INFO $c]"
       
       convert $amount $from $to
       c=$(($c+1))
    done < $1
-// third case
+# third case
 else
     read -p "Выберите вариант использования(1 - самостоятельный ввод запроса с клавиатуры в формате $INPUT_FORMAT; 2 - указание файла со строками формата $INPUT_FORMAT): " action
     echo
-    // check the selected option
+    # check the selected option
     if [[ $action -eq 1 ]]; then
-    	// process first case with 3 arguments
+    	# process first case with 3 arguments
         read -p "Введите запрос в формате $INPUT_FORMAT: " amount from to
         convert $amount $from $to
     else
         read -p "Введите путь до файла: " f_path
 	
-	// check file existence
+	# check file existence
         if [[ ! -f $f_path ]]; then
             echo "Указанного пути не существует или это не файл"
             exit 0
         fi
-	// process second case with file path
+	# process second case with file path
 	c=1
 	echo
         while read amount from to
         do
-	  // beautiful output
+	  # beautiful output
           echo "[INFO $c]"
 	  
           convert $amount $from $to
