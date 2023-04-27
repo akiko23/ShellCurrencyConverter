@@ -1,4 +1,4 @@
-API_KEY=wYLMrI9ITvgE34F3cCEBmlcSXxalHPd8
+API_KEY=kVQbLPfe3nLrfCR5d6v9FBxJYN5h7qRB
 INPUT_FORMAT='КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД (Пример: 5000 RUB USD)'
 
 # This function makes request on Fixer API which consists of amount, origin curency and curency that you want to receive and then returns the current rate
