@@ -1,5 +1,5 @@
 API_KEY=wYLMrI9ITvgE34F3cCEBmlcSXxalHPd8
-INPUT_FORMAT='КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД (Пример запроса: 5000 RUB USD)'
+INPUT_FORMAT='КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД (Пример: 5000 RUB USD)'
 
 # This function makes request on Fixer API which consists of amount, origin curency and curency that you want to receive and then returns the current rate
 function convert() {
@@ -8,12 +8,15 @@ function convert() {
     echo `curl -s --request GET \
          --url $url \
          --header "apikey: $API_KEY"` | \
-    python3 -c "import sys, json; data = json.load(sys.stdin); query = data.get('query', None); print(query['amount'], query['from'], 'это', data['result'], query['to'] + '\n') if query else print('Некорректный формат ввода. Проверьте входные данные, они должны соответствовать формату \"КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД\"\n')"
+    python3 -c "import sys, json; data = json.load(sys.stdin); query = data.get('query', None); print(query['amount'], query['from'], 'это', data['result'], query['to'] + '\n') if query else print('Некорректный формат ввода. Проверьте входные данные, они должны соответствовать формату \"КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД\" (Пример: 5000 RUB USD)\n')"
 }
 
 # "how to use" instruction
 if [[ $1 == '-h' ]]; then
-  echo ""
+  echo "Существует 3 варианта использования скрипта. 
+  1. Вы можете сразу передать аргументы на этапе запуска формата $INPUT_FORMAT;
+  2. Вы можете передать первым аргументом на этапе запуска путь до файла, который содержит строки формата $INPUT_FORMAT
+  3. Вы можете запустить скрипт без аргументов и он предложит вам 2 варианта использования"
   exit 0
 fi
 
