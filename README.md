@@ -5,3 +5,5 @@ Installation and launch:
 1. git clone https://github.com/akiko23/ShellCurrencyConverter.git
 2. cd ShellCurrencyConverter/ && chmod +x script.sh
 3. ./script.sh
+
+You`l receive instruction after running this script
