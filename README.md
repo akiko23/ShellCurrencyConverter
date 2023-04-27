@@ -6,4 +6,4 @@ Installation and launch:
 2. cd ShellCurrencyConverter/ && chmod +x script.sh
 3. ./script.sh
 
-You`ll receive instruction after running this script
+You`ll receive instruction after running this script. You can also use ./script.sh -h
