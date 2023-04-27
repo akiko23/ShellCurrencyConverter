@@ -5,10 +5,19 @@ INPUT_FORMAT='КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_
 function convert() {
     echo "Подождите, идет запрос к АПИ.."
     url="https://api.apilayer.com/fixer/convert?to=$3&from=$2&amount=$1"
-    echo `curl -s --request GET \
+    response=`curl -s --request GET \
          --url $url \
-         --header "apikey: $API_KEY"` | \
-    python3 -c "import sys, json; data = json.load(sys.stdin); query = data.get('query', None); print(query['amount'], query['from'], 'это', data['result'], query['to'] + '\n') if query else print('Некорректный формат ввода. Проверьте входные данные, они должны соответствовать формату \"КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД\" (Пример: 5000 RUB USD)\n')"
+         --header "apikey: $API_KEY"`
+    
+    query=`echo $response | jq ".query"`
+    if [[ $query == "null" ]]; then
+      echo "Ошибка, проверьте ваш запрос, он должен соответствовать формату $INPUT_FORMAT)"
+      exit 0
+    fi
+    
+    result=`echo $response | jq ".result"`
+    echo "$1 $2 это $result $3"
+    echo
 }
 
 # "how to use" instruction
