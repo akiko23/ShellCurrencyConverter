@@ -16,7 +16,7 @@ ShellCurrencyConverter - это скрипт, позволяющий конве�
    cd ShellCurrencyConverter/ && chmod +x script.sh
    ```
    
-3. Установите утилиту jq, используя пакетный менеджер вашего Linux
+3. Установите утилиту jq, используя пакетный менеджер вашего Unix
     - Debian & derivatives (Ubuntu, Kali, Mint, PopOS)
       ```
       sudo apt install jq
@@ -28,6 +28,10 @@ ShellCurrencyConverter - это скрипт, позволяющий конве�
     - RedHat & derivatives (Fedora, CentOS)
       ```
       sudo rpm -i jq 
+      ```
+    - MacOS
+      ```
+      brew install jq 
       ```
 
 4. Запустите скрипт:
