@@ -1,9 +1,9 @@
 API_KEY=kVQbLPfe3nLrfCR5d6v9FBxJYN5h7qRB
-INPUT_FORMAT='КОЛИЧЕСТВО ВАЛЮТА_НА_ВХОД ВАЛЮТА_НА_ВЫХОД (Пример: 5000 RUB USD)'
+INPUT_FORMAT='[сумма] [исходная_валюта] [целевая_валюта]'
 
 # This function makes request on Fixer API which consists of amount, origin curency and curency that you want to receive and then returns the current rate
 function convert() {
-    echo "Подождите, идет запрос к АПИ.."
+    echo "Подождите, ждем ответа от АПИ.."
     url="https://api.apilayer.com/fixer/convert?to=$3&from=$2&amount=$1"
     response=`curl -s --request GET \
          --url $url \
@@ -22,11 +22,13 @@ function convert() {
 
 # "how to use" instruction
 if [[ $1 == '-h' ]]; then
-  echo "Существует 3 варианта использования скрипта. 
-  1. Вы можете сразу передать аргументы на этапе запуска формата $INPUT_FORMAT;
-  2. Вы можете передать первым аргументом на этапе запуска путь до файла, который содержит строки формата $INPUT_FORMAT
-  3. Вы можете запустить скрипт без аргументов и он предложит вам 2 варианта использования"
-  exit 0
+ echo " 
+ -h |                                                 | вывод справки по скрипту                                                                             |
+ -f | [file_path]                                     | принять на вход путь до файла, содержащего строки формата $INPUT_FORMAT | Пример: ./script.sh -f currencies.txt
+    | $INPUT_FORMAT      | аргументы, введенные с клавиатуры в формате $INPUT_FORMAT               | Пример: ./script.sh 100 USD RUB 
+
+ Также вы можете запустить скрипт без аргументов и он предложит вам 2 сценария использования"
+ exit 0
 fi
 
 # check for first case with 3 arguments
@@ -34,7 +36,7 @@ if [[ $1 ]] && [[ $2 ]] && [[ $3 ]]; then
     convert $1 $2 $3
     
 # check for the second case with file path
-elif [[ -f $1 ]]; then
+elif [[ $1 == "-f" && -f $2 ]]; then
    c=1
    # read file lines
    while read amount from to
@@ -44,7 +46,7 @@ elif [[ -f $1 ]]; then
       
       convert $amount $from $to
       c=$(($c+1))
-   done < $1
+   done < $2
 # third case
 else
     read -p "Выберите вариант использования(1 - самостоятельный ввод запроса с клавиатуры в формате $INPUT_FORMAT; 2 - указание файла со строками формата $INPUT_FORMAT): " action
