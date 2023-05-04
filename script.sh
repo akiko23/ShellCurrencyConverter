@@ -11,21 +11,21 @@ function convert() {
     
     query=`echo $response | jq ".query"`
     if [[ $query == "null" ]]; then
-      echo "Ошибка, проверьте ваш запрос, он должен соответствовать формату $INPUT_FORMAT)"
+      echo -e "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Некорректный ответ, проверьте ваш запрос, он должен соответствовать формату $INPUT_FORMAT)"
       exit 0
     fi
     
     result=`echo $response | jq ".result"`
-    echo "$1 $2 это $result $3"
+    echo -e "$1 $2 это $result $3"
     echo
 }
 
 # "how to use" instruction
 if [[ $1 == '-h' ]]; then
  echo " 
- -h |                                                 | вывод справки по скрипту                                                                             |
- -f | [file_path]                                     | принять на вход путь до файла, содержащего строки формата $INPUT_FORMAT | Пример: ./script.sh -f currencies.txt
-    | $INPUT_FORMAT      | аргументы, введенные с клавиатуры в формате $INPUT_FORMAT               | Пример: ./script.sh 100 USD RUB 
+ -h |                                                 | вывод справки по скрипту                                                                                          |
+ -f | [file_path]                                     | принять на вход путь до файла, который должен содержать строки формата $INPUT_FORMAT | Пример: ./script.sh -f currencies.txt
+    | $INPUT_FORMAT      | параметры конвертации, введенные с клавиатуры                                                                     | Пример: ./script.sh 100 USD RUB 
 
  Также вы можете запустить скрипт без аргументов и он предложит вам 2 сценария использования"
  exit 0
@@ -36,20 +36,30 @@ if [[ $1 ]] && [[ $2 ]] && [[ $3 ]]; then
     convert $1 $2 $3
     
 # check for the second case with file path
-elif [[ $1 == "-f" && -f $2 ]]; then
+elif [[ $1 == "-f" ]]; then
+    if [[ ! $2 ]]; then
+        echo -e "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Вы не указали обязательный аргумент (путь до файла).\nИспользование -f: \033[32m./script.sh -f [путь/до/файла]"
+        exit 1
+    fi
+
+    if [[ ! -f $2 ]]; then
+        echo -e "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Указанного пути не сушествует или это не файл"
+        exit 1
+    fi
    c=1
    # read file lines
    while read amount from to
    do
       # beautiful output
-      echo "[INFO $c]"
+      echo -e "\033[32m[INFO $c]\033[37m"
       
       convert $amount $from $to
       c=$(($c+1))
    done < $2
 # third case
 else
-    read -p "Выберите вариант использования(1 - самостоятельный ввод запроса с клавиатуры в формате $INPUT_FORMAT; 2 - указание файла со строками формата $INPUT_FORMAT): " action
+    read -p "Выберите сценарий использования:
+1 - самостоятельный ввод запроса с клавиатуры в формате $INPUT_FORMAT; 2 - указание файла со строками формата $INPUT_FORMAT): " action
     echo
     # check the selected option
     if [[ $action -eq 1 ]]; then
@@ -61,7 +71,7 @@ else
 	
 	# check file existence
         if [[ ! -f $f_path ]]; then
-            echo "Указанного пути не существует или это не файл"
+            echo "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Указанного пути не существует или это не файл"
             exit 0
         fi
 	# process second case with file path
@@ -70,7 +80,7 @@ else
         while read amount from to
         do
 	  # beautiful output
-          echo "[INFO $c]"
+          echo -e "\033[32m[INFO $c]\033[37m"
 	  
           convert $amount $from $to
           c=$(($c+1))
