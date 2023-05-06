@@ -4,24 +4,25 @@ ShellCurrencyConverter - это скрипт, позволяющий конве�
 
 ## Установка и использование
    
-1. Загрузите утилиту jq, используя пакетный менеджер вашего Unix:
-- Debian & derivatives (Ubuntu, Kali, Mint, PopOS):
-  ```
-  sudo apt install jq
-  ```
-- Arch & derivatives (Manjaro, Asahi):
-  ```
-  sudo pacman -S jq
-  ```
-- RedHat & derivatives (Fedora, CentOS):
-  ```
-  sudo rpm -i jq 
-  ```
-- MacOS
-  ```
-  brew install jq 
-  ```
+1. Загрузите утилиту jq, используя пакетный менеджер вашего Linux или MacOS:
 
+    `Debian & derivatives (Ubuntu, Kali, Mint, PopOS)`:
+      ```
+      sudo apt install jq
+      ```
+    `Arch & derivatives (Manjaro, Asahi)`:
+      ```
+      sudo pacman -S jq
+      ```
+    `RedHat & derivatives (Fedora, CentOS)`:
+      ```
+      sudo rpm -i jq 
+      ```
+    `MacOS`:
+      ```
+      brew install jq
+      ```
+    
 2. Выполните установку и запуск скрипта:
    ```
    git clone https://github.com/akiko23/ShellCurrencyConverter.git
