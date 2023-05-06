@@ -11,7 +11,7 @@ function convert() {
     
     query=`echo $response | jq ".query"`
     if [[ $query == "null" ]]; then
-      echo -e "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Некорректный ответ, проверьте ваш запрос, он должен соответствовать формату $INPUT_FORMAT)"
+        echo -e "\033[0m\033[0m\033[31m[ERROR]\033[37m Некорректный ответ, проверьте ваш запрос (\033[0;33m'[$1] [$2] [$3]'\033[39m) , он должен соответствовать формату $INPUT_FORMAT)"
       exit 0
     fi
     
@@ -31,7 +31,7 @@ if [[ $1 == '-h' ]]; then
  exit 0
 fi
 
-# check for first case with 3 arguments
+# check for the first case with 3 arguments
 if [[ $1 ]] && [[ $2 ]] && [[ $3 ]]; then
     convert $1 $2 $3
     
