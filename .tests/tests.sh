@@ -7,6 +7,8 @@ error=\\033[31m[ERROR]\\033[37m
 info=\\033[35m[INFO]\\033[37m
 test_data_path=currencies
 
+chmod +x ../script.sh
+
 # create files
 mkdir $test_data_path
 echo -e "1 USD RUB\n6 EUR AMD\n40000 RUB AMD" > $test_data_path/correct.txt
