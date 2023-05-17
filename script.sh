@@ -1,4 +1,4 @@
-API_KEY=kVQbLPfe3nLrfCR5d6v9FBxJYN5h7qRB
+API_KEY=oZ2ugqoP2vSvDiu25QZzoWLwuYEV9WEC
 INPUT_FORMAT='[сумма] [исходная_валюта] [целевая_валюта]'
 
 # This function makes request on Fixer API which consists of amount, origin curency and curency that you want to receive and then returns the current rate
@@ -10,9 +10,10 @@ function convert() {
          --header "apikey: $API_KEY"`
     
     query=`echo $response | jq ".query"`
-    if [[ $query == "null" ]]; then
+    echo $response
+    if [[ $query == "null" || ! $query ]]; then
         echo -e "\033[0m\033[0m\033[31m[ERROR]\033[37m Некорректный ответ, проверьте ваш запрос (\033[0;33m'[$1] [$2] [$3]'\033[39m) , он должен соответствовать формату $INPUT_FORMAT)"
-      exit 0
+      exit 1
     fi
     
     result=`echo $response | jq ".result"`
@@ -39,12 +40,12 @@ if [[ $1 ]] && [[ $2 ]] && [[ $3 ]]; then
 elif [[ $1 == "-f" ]]; then
     if [[ ! $2 ]]; then
         echo -e "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Вы не указали обязательный аргумент (путь до файла).\nИспользование -f: \033[32m./script.sh -f [путь/до/файла]"
-        exit 1
+        exit 2
     fi
 
     if [[ ! -f $2 ]]; then
         echo -e "\033[0m\n\033[0m\033[31m[ERROR]\033[37m Указанного пути не сушествует или это не файл"
-        exit 1
+        exit 3
     fi
    c=1
    # read file lines
