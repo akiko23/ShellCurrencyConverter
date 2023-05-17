@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# some constants
 sc=\\033[33m[SCRIPT]\\033[37m
 success=\\033[32m[SUCCESS]\\033[37m
 error=\\033[31m[ERROR]\\033[37m
@@ -13,10 +14,8 @@ echo -e "34 EUR RUB\n5 AMD fkaskfk" > $test_data_path/incorrect.txt
 
 echo 
 echo -e "$info TEST SCRIPT WITH ARGS ENTERED FROM KEYBOARD"
-
-# test case with arguments entered from the keyboard
 echo -e "\n$sc Enter correct keyboard args"
-../script.sh 1 USD RUB > log # correct one (exit code has to be 0)
+../script.sh 1 USD RUB > log # correct args (exit code has to be 0)
 if [[ $? -eq 0 ]]; then
   echo -e "$success Test 1 passed" 
 else
