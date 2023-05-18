@@ -10,7 +10,6 @@ function convert() {
          --header "apikey: $API_KEY"`
     
     query=`echo $response | jq ".query"`
-    echo $response
     if [[ $query == "null" || ! $query ]]; then
         echo -e "\033[0m\033[0m\033[31m[ERROR]\033[37m Некорректный ответ, проверьте ваш запрос (\033[0;33m'[$1] [$2] [$3]'\033[39m) , он должен соответствовать формату $INPUT_FORMAT)"
       exit 1
